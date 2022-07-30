@@ -1,0 +1,16 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+        "settings":
+        {
+                "latextools.tex_root": "DSGVO-Bearbeitung.tex",
+                "spell_check": true,
+                "dictionary": "Packages/User/Dictionaries/German.dic",
+                "rulers": [120],
+                "auto_wrap": true
+        }	
+}
