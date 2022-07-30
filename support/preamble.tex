@@ -5,6 +5,8 @@
 \documentclass[
   oneside,
   a4paper,
+  10pt,
+  DIV=11,
   parskip=half,
   numbers=noenddot,
   chapterprefix=false,
@@ -35,7 +37,7 @@
 % Strukturierung
 \renewcaptionname{ngerman}{\chaptername}{Artikel}
 \renewcommand*{\chapterformat}{%
-  \mbox{\chapapp{\nobreakspace}\thechapter \autodot\IfUsePrefixLine{}{\enskip}}}
+  \mbox{\chapapp{\nobreakspace}\thechapter{} -- }}
 
 
 % ---------------------------------------------------------------------------------------------------------------------
@@ -53,6 +55,8 @@
   bookmarksnumbered=true,
   bookmarksdepth=9
 ]{hyperref}
+\def\UrlBreaks{\do\/\do-}% Zeilenumbrüche in langen URLs
+
 \usepackage[german]{fancyref} 
 
 % weiterhin zu fancyref: Seitenzahl nur angeben, wenn mindestens 5 Seiten Abstand sind
@@ -88,6 +92,11 @@
 \usepackage{imakeidx}                  % Indexgenerierung + Eintrag in TOC
 \setcounter{secnumdepth}{4}       % Wie "tief" sollen Nummern vergeben werden?
 \setcounter{tocdepth}{2}          % Wieviele Ebenen sollen ins Inhaltsverzeichnis?
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Arbeitshilfen
+\usepackage[german]{todonotes}
 
 
 % ---------------------------------------------------------------------------------------------------------------------
