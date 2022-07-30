@@ -1,0 +1,96 @@
+%!TEX root = ../DSGVO-Bearbeitung.tex
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Dokumentenklasse
+\documentclass[
+  oneside,
+  a4paper,
+  parskip=half,
+  numbers=noenddot,
+  chapterprefix=false,
+  headings=small
+]{scrbook}
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Makro-Hilfen
+\usepackage{xspace}
+\xspaceaddexceptions{"=}
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Eingabekodierung
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Spracheinstellungen
+\usepackage[ngerman]{babel}
+\usepackage[german=german-x-latest]{hyphsubst} % bessere Silbentrennung
+\usepackage{csquotes}
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Strukturierung
+\renewcaptionname{ngerman}{\chaptername}{Artikel}
+\renewcommand*{\chapterformat}{%
+  \mbox{\chapapp{\nobreakspace}\thechapter \autodot\IfUsePrefixLine{}{\enskip}}}
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Typographie
+\usepackage{microtype}
+\hbadness=10001
+\vbadness=10001
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Hyperlinks und Querverweise
+\usepackage[  
+  colorlinks=true,
+  linkcolor=blue,
+  bookmarksnumbered=true,
+  bookmarksdepth=9
+]{hyperref}
+\usepackage[german]{fancyref} 
+
+% weiterhin zu fancyref: Seitenzahl nur angeben, wenn mindestens 5 Seiten Abstand sind
+% siehe http://tex.stackexchange.com/questions/136725/how-to-change-fancyrefs-page-numbering-behaviour
+\renewcommand*{\reftextfaceafter}{\unskip}
+\renewcommand*{\reftextafter}{\unskip}
+\renewcommand*{\reftextfacebefore}{\unskip}
+\renewcommand*{\reftextbefore}{\unskip}
+\makeatletter
+\let\saved@reftextfaraway\reftextfaraway
+\renewcommand*{\reftextfaraway}[1]{%
+  \begingroup
+    \def\ref@unknown@value{??}%
+    \ifx\@tempa\ref@unknown@value
+      \count@=0 %
+    \else
+      \count@\thevpagerefnum\relax
+      \advance\count@ by -\@tempa\relax
+      \ifnum\count@<0 \count@=-\count@\fi
+    \fi
+    \ifnum\count@<5 %
+      \unskip
+    \else
+      \saved@reftextfaraway{#1}%
+    \fi
+  \endgroup
+}
+\makeatother
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Verzeichnisse, Glossar und Abkürzungsverzeichnis
+\usepackage{imakeidx}                  % Indexgenerierung + Eintrag in TOC
+\setcounter{secnumdepth}{4}       % Wie "tief" sollen Nummern vergeben werden?
+\setcounter{tocdepth}{2}          % Wieviele Ebenen sollen ins Inhaltsverzeichnis?
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% eigene logische Textauszeichnungen
+
+
