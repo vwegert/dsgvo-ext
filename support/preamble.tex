@@ -39,7 +39,13 @@
 \renewcommand*{\chapterformat}{%
   \mbox{\chapapp{\nobreakspace}\thechapter{} -- }}
 \RedeclareSectionCommand[style=section]{chapter}
+
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Aufzählungen
 \usepackage{enumitem}
+\setlist[enumerate, 1]{label = (\arabic*)}
+
 
 % ---------------------------------------------------------------------------------------------------------------------
 % Typographie
