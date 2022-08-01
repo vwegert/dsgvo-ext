@@ -10,7 +10,8 @@
   parskip=half,
   numbers=noenddot,
   chapterprefix=false,
-  headings=small
+  headings=small,
+  bibliography=notnumbered,
 ]{scrbook}
 
 
@@ -18,6 +19,10 @@
 % Makro-Hilfen
 \usepackage{xspace}
 \xspaceaddexceptions{"=}
+% see https://tex.stackexchange.com/questions/652100/dimeval-for-pdflate
+\ExplSyntaxOn
+\cs_if_exist:NF \dimeval { \cs_set_eq:NN \dimeval \dim_eval:n }
+\ExplSyntaxOff
 
 
 % ---------------------------------------------------------------------------------------------------------------------
@@ -42,6 +47,14 @@
 
 
 % ---------------------------------------------------------------------------------------------------------------------
+% Tabellen und tabellarische Anordnung
+\usepackage{array}                     % hübschere Arrays / Matrizen
+\usepackage{longtable}                 % Tabellen über mehrere Seiten
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\renewcommand{\arraystretch}{1.4}
+
+
+% ---------------------------------------------------------------------------------------------------------------------
 % Aufzählungen
 \usepackage{enumitem}
 \setlist[enumerate, 1]{label = (\arabic*)}
@@ -56,9 +69,12 @@
 
 % ---------------------------------------------------------------------------------------------------------------------
 % Hyperlinks und Querverweise
+\usepackage{qrcode}
 \usepackage[  
   colorlinks=true,
   linkcolor=blue,
+  urlcolor=teal,
+  citecolor=teal,
   bookmarksnumbered=true,
   bookmarksdepth=9
 ]{hyperref}
@@ -70,6 +86,34 @@
 \usepackage{imakeidx}                  % Indexgenerierung + Eintrag in TOC
 \setcounter{tocdepth}{0} % only parts and chapters
 
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Literaturverzeichnis
+% see https://tex.stackexchange.com/questions/652021/bibliography-with-qr-codes-to-the-right-of-the-entry
+\usepackage[style=alphabetic]{biblatex}
+\usepackage{biblatex-ext-tabular}
+\appto{\biburlsetup}{\renewcommand*{\UrlFont}{\scriptsize\ttfamily}}
+\DeclareFieldFormat{qrurl}{\raisebox{\dimeval{-\height+\ht\strutbox}}{\qrcode{#1}}}
+\defbibtabular{bibtabular}
+  {\setlength{\LTpre}{0pt}%
+   \setlength{\LTpost}{0pt}%
+   \renewcommand*{\arraystretch}{2}%
+   \begin{longtable}{%
+   @{}
+   L{\labelalphawidth}
+   L{\dimexpr0.7\textwidth-0.7\labelalphawidth\relax}
+   L{\dimexpr0.3\textwidth-0.3\labelalphawidth\relax}
+   @{}}}
+  {\end{longtable}}
+  {\anchorlang{%
+     \printtext[labelalphawidth]{%
+       \printfield{labelprefix}%
+       \printfield{labelalpha}%
+       \printfield{extraalpha}}} &
+   \driver{} &
+   \plain{\printfield[qrurl]{url}}
+    \\}
+\addbibresource{DSGVO-ExtendedVersion.bib}
 
 % ---------------------------------------------------------------------------------------------------------------------
 % Arbeitshilfen
