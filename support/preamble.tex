@@ -6,14 +6,34 @@
   oneside,
   a4paper,
   10pt,
-  DIV=11,
+  DIV=14,
   parskip=half,
   numbers=noenddot,
   chapterprefix=false,
   headings=small,
-  bibliography=notnumbered,
+  bibliography=notnumbered%,
+  %mpinclude=true
 ]{scrbook}
 
+
+% ---------------------------------------------------------------------------------------------------------------------
+% Layout
+%\usepackage{showframe}
+\usepackage{scrlayer-scrpage} 
+\usepackage{scrlayer-notecolumn}
+\newlength{\paragraphscolwidth} 
+\AfterCalculatingTypearea{%
+  \setlength{\paragraphscolwidth}{% 
+    .333\textwidth}%
+  \addtolength{\paragraphscolwidth}{% 
+    -\marginparsep}%
+}
+\recalctypearea 
+\DeclareNewNoteColumn[%
+  position=\oddsidemargin + 1in + .667\textwidth + \marginparsep,
+  width=\paragraphscolwidth, 
+  font=\raggedright\footnotesize\color{red} 
+]{paragraphs}
 
 % ---------------------------------------------------------------------------------------------------------------------
 % Makro-Hilfen
@@ -43,7 +63,7 @@
 \renewcaptionname{ngerman}{\partname}{Kapitel}
 \renewcaptionname{ngerman}{\chaptername}{Artikel}
 \renewcommand*{\chapterformat}{\mbox{\chapapp{\nobreakspace}\thechapter{} -- }}
-\RedeclareSectionCommand[style=section]{chapter}
+%\RedeclareSectionCommand[style=section]{chapter}
 
 
 % ---------------------------------------------------------------------------------------------------------------------
@@ -76,7 +96,8 @@
   urlcolor=teal,
   citecolor=teal,
   bookmarksnumbered=true,
-  bookmarksdepth=9
+  bookmarksdepth=chapter,
+  bookmarksopen=true
 ]{hyperref}
 \def\UrlBreaks{\do\/\do-}% Zeilenumbrüche in langen URLs
 
@@ -122,5 +143,11 @@
 
 % ---------------------------------------------------------------------------------------------------------------------
 % eigene logische Textauszeichnungen
-
+\newcommand{\comment}[1]{\leavevmode\makenote[paragraphs]{#1}\ignorespaces}
+\newenvironment{commentblock}{%
+  \begin{addmargin}[0pt]{.333\textwidth}
+}{%
+  \end{addmargin}
+}
+\newcommand{\synccomments}{\syncwithnotecolumn[paragraphs]}
 

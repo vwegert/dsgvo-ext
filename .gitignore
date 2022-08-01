@@ -24,6 +24,7 @@
 *.lot
 *.out
 *.run.xml
+*.slnc
 *.synctex.gz
 *.synctex(busy)
 *.toc
