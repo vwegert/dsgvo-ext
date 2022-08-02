@@ -11,29 +11,18 @@
   numbers=noenddot,
   chapterprefix=false,
   headings=small,
-  bibliography=notnumbered%,
-  %mpinclude=true
+  bibliography=notnumbered,
+  mpinclude
 ]{scrbook}
 
 
 % ---------------------------------------------------------------------------------------------------------------------
 % Layout
-%\usepackage{showframe}
-\usepackage{scrlayer-scrpage} 
-\usepackage{scrlayer-notecolumn}
-\newlength{\paragraphscolwidth} 
-\AfterCalculatingTypearea{%
-  \setlength{\paragraphscolwidth}{% 
-    .333\textwidth}%
-  \addtolength{\paragraphscolwidth}{% 
-    -\marginparsep}%
-}
-\recalctypearea 
-\DeclareNewNoteColumn[%
-  position=\oddsidemargin + 1in + .667\textwidth + \marginparsep,
-  width=\paragraphscolwidth, 
-  font=\raggedright\footnotesize\color{red} 
-]{paragraphs}
+\addtolength{\marginparwidth}{3cm}
+\addtolength{\textwidth}{-3cm}
+\usepackage[german]{todonotes}
+\newcommand{\comment}[1]{\todo[color=red!30,size=\footnotesize]{#1}}
+
 
 % ---------------------------------------------------------------------------------------------------------------------
 % Makro-Hilfen
@@ -138,17 +127,5 @@
 \addbibresource{DSGVO-ExtendedVersion.bib}
 
 % ---------------------------------------------------------------------------------------------------------------------
-% Arbeitshilfen
-\usepackage[german]{todonotes}
-
-
-% ---------------------------------------------------------------------------------------------------------------------
 % eigene logische Textauszeichnungen
-\newcommand{\comment}[1]{\leavevmode\makenote[paragraphs]{#1}\ignorespaces}
-\newenvironment{commentblock}{%
-  \begin{addmargin}[0pt]{.333\textwidth}
-}{%
-  \end{addmargin}
-}
-\newcommand{\synccomments}{\syncwithnotecolumn[paragraphs]}
 
