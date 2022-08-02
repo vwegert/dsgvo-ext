@@ -131,11 +131,13 @@
 \usepackage{datatool}
 \DTLloadrawdb{egmap}{umfeld/eg-map.csv}
 \newcommand{\crossrefArticleToReason}[1]{%
-{\DTLforeach*[\DTLiseq{\art}{#1}]{egmap}{\art=Artikel,\eg=EG}{\DTLiffirstrow{{\color{red}Erwägungsgründe:} }{, }\hyperref[eg:\eg]{\eg}}}
-}
+{\DTLforeach*[\DTLiseq{\art}{#1}]{egmap}{\art=Artikel,\eg=EG}{%
+\DTLiffirstrow{{\color{red}Erwägungsgründe:} }{, }\hyperref[itm:eg-\eg]{\eg}}%
+}}
 \newcommand{\crossrefReasonToArticle}[1]{%
-{\DTLforeach*[\DTLiseq{\eg}{#1}]{egmap}{\art=Artikel,\eg=EG}{\DTLiffirstrow{{\color{red}Artikel:} }{, }\hyperref[ch:\art]{\art}}}
-}
+{\DTLforeach*[\DTLiseq{\eg}{#1}]{egmap}{\art=Artikel,\eg=EG}{%
+\DTLiffirstrow{{\color{red}Artikel:} }{, }\hyperref[ch:\art]{\art}}%
+}}
 
 
 % ---------------------------------------------------------------------------------------------------------------------
